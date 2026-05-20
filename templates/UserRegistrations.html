@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block contents %}
+
+<style>
+/* Page background */
+.register-section {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #f0f4ff, #e6f0ff);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Card styling */
+.register-card {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 15px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.register-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 45px rgba(0,0,0,0.2);
+}
+
+/* Headings */
+.register-card h2 {
+    color: #7c1d1d;
+    letter-spacing: 0.5px;
+}
+
+/* Inputs */
+.register-card input,
+.register-card select,
+.register-card textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.register-card input:focus,
+.register-card select:focus,
+.register-card textarea:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.2);
+}
+
+/* Button */
+.register-card button {
+    border-radius: 30px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.register-card button:hover {
+    transform: scale(1.05);
+}
+
+/* Mobile spacing */
+@media (max-width: 576px) {
+    .register-card {
+        padding: 20px;
+    }
+}
+</style>
+
+<section class="register-section">
+    <div class="container py-4">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-7 col-lg-5 text-center">
+
+                <div class="card p-4 register-card">
+                    <form action="{% url 'UserRegisterActions' %}" method="POST">
+
+                        <h2 class="h5 mb-4 font-weight-bold">
+                            User Registration
+                        </h2>
+
+                        {% csrf_token %}
+
+                        {% for field in form %}
+                        <div class="form-group mb-3 text-left">
+                            <label class="small font-weight-bold">
+                                {{ field.label }}
+                            </label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <small class="text-danger">
+                                    {{ field.errors|striptags }}
+                                </small>
+                            {% endif %}
+                        </div>
+                        {% endfor %}
+
+                        <button class="btn btn-primary py-2 px-5 mt-3">
+                            Register
+                        </button>
+
+                        {% if messages %}
+                        <div class="mt-3">
+                            {% for message in messages %}
+                                <p class="text-danger small">{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

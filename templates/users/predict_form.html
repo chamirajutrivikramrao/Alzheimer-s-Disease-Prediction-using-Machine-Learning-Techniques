@@ -1,0 +1,250 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block contents %}
+<style>
+        .form-box {
+            background-color: #ffffff;
+            border: 1px solid #dddddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-box h2 {
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            margin-bottom: 20px;
+            color: black;
+        }
+
+        .form-group label {
+            font-weight: 600;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn-block {
+            background-color: #28a745; /* Green background */
+            color: #ffffff; /* White text */
+            font-weight: bold;
+            font-size: 1.2rem; /* Larger font size */
+            padding: 15px 20px; /* Add adequate padding */
+            border: none;
+            border-radius: 8px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: block; /* Ensure it takes the full width of the container */
+            margin: 0 auto; /* Center the button */
+            overflow: visible; /* Prevent clipping */
+        }
+
+        .btn-block:hover {
+            background-color: #218838; /* Darker green on hover */
+            color: #ffffff; /* Ensure text stays white */
+            transform: scale(1.1); /* Slight zoom effect */
+        }
+
+        body {
+            background: linear-gradient(45deg, #ff7f50, #1e90ff, #32cd32);
+        }
+
+        .container {
+            padding-top: 50px;
+        }
+
+        .prediction-result {
+            font-weight: bold;
+            color: red;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+        }
+    </style>
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-warning text-center">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+
+<div class="container" style="padding-top: 60px;">
+    <div class="form-box">
+
+        <!-- PAGE HEADING -->
+        <h2 class="text-center mb-4">
+            Alzheimer’s Disease Prediction
+        </h2>
+
+        <!-- PREDICTION RESULT
+        {% if prediction %}
+        <div class="alert alert-danger text-center">
+            <strong>Prediction Result:</strong><br>
+            {{ prediction }}
+            {% if model_used %}
+                <br><small>(Model used: {{ model_used }})</small>
+            {% endif %}
+        </div>
+        {% endif %} -->
+
+        <!-- FORM -->
+        <form method="POST">
+    {% csrf_token %}
+
+    <input type="number" name="age" class="form-control mb-2"
+           placeholder="Age (40 – 100 years)" min="40" max="100" required>
+
+    <input type="number" name="mmse" class="form-control mb-2"
+           placeholder="MMSE Score (0 – 30)" min="0" max="30" required>
+
+    <input type="number" name="functional_assessment" class="form-control mb-2"
+           placeholder="Functional Assessment (0 – 10)" min="0" max="10" step="0.1" required>
+
+    <input type="number" name="adl" class="form-control mb-2"
+           placeholder="ADL Score (0 – 10)" min="0" max="10" step="0.1" required>
+
+    <input type="number" name="education_level" class="form-control mb-2"
+           placeholder="Education Level (0 – 20 years)" min="0" max="20" required>
+
+    <input type="number" name="CholesterolTotal" class="form-control mb-3"
+           placeholder="Total Cholesterol (120 – 350 mg/dL)" min="120" max="350" required>
+
+    <hr>
+
+    <label>Memory Complaints</label>
+    <select name="memory_complaints" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Confusion</label>
+    <select name="confusion" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Disorientation</label>
+    <select name="disorientation" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Forgetfulness</label>
+    <select name="forgetfulness" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Difficulty Completing Tasks</label>
+    <select name="difficulty_tasks" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Personality Changes</label>
+    <select name="personality_changes" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Family History of Alzheimer’s</label>
+    <select name="family_history" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Depression</label>
+    <select name="depression" class="form-control mb-2" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <label>Head Injury</label>
+    <select name="head_injury" class="form-control mb-3" required>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+    </select>
+
+    <button class="btn btn-success btn-block mt-3">
+        Predict
+    </button>
+</form>
+
+    </div>
+</div>
+{% if prediction %}
+<!-- Prediction Modal -->
+<div class="modal fade" id="predictionModal" tabindex="-1" role="dialog"
+     aria-labelledby="predictionModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header text-white" id="predictionHeader">
+        <h5 class="modal-title" id="predictionModalLabel">
+          Prediction Result
+        </h5>
+        <button type="button" class="close text-white" data-dismiss="modal">
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body text-center">
+        <p style="font-size: 16px; white-space: pre-line;">
+          {{ prediction }}
+        </p>
+
+        <h6 class="mt-2">
+          Estimated Alzheimer’s Risk:
+          <strong>{{ risk_percent }}%</strong>
+        </h6>
+
+        {% if model_used %}
+          <small class="text-muted">
+            Model used: {{ model_used }}
+          </small>
+        {% endif %}
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<input type="hidden" id="riskValue" value="{{ risk_percent|default:0 }}">
+
+<!-- Risk-based color + auto open -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const risk = Number(document.getElementById("riskValue").value);
+    const header = document.getElementById("predictionHeader");
+
+    if (risk < 20) {
+        header.classList.add("bg-success");
+    } 
+    else if (risk <= 50) {
+        header.classList.add("bg-warning", "text-dark");
+    } 
+    else {
+        header.classList.add("bg-danger");
+    }
+
+    $('#predictionModal').modal('show');
+});
+</script>
+
+{% endif %}
+{% endblock %}

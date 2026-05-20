@@ -1,0 +1,117 @@
+{% extends 'admins/adminbase.html' %}
+{% block contents %}
+
+<style>
+.admin-dashboard {
+    padding: 80px 0;
+    background: #f5f8fc;
+    min-height: 80vh;
+    font-family: 'Poppins', sans-serif;
+}
+
+.admin-title {
+    text-align: center;
+    font-weight: 700;
+    font-size: 32px;
+    color: #1f2937;
+}
+
+.admin-subtitle {
+    text-align: center;
+    color: #6b7280;
+    font-size: 15px;
+    margin-top: 8px;
+    margin-bottom: 50px;
+}
+
+.highlight-card {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 35px 25px;
+    text-align: center;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.highlight-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 45px rgba(0,0,0,0.15);
+}
+
+.highlight-icon {
+    font-size: 42px;
+    margin-bottom: 18px;
+}
+
+.highlight-title {
+    font-weight: 600;
+    font-size: 18px;
+    color: #111827;
+    margin-bottom: 10px;
+}
+
+.highlight-text {
+    font-size: 14.5px;
+    color: #4b5563;
+    line-height: 1.6;
+}
+</style>
+
+<section class="admin-dashboard">
+    <div class="container">
+
+        <!-- Header -->
+        <h2 class="admin-title">Admin Dashboard</h2>
+        <p class="admin-subtitle">
+            System overview and administrative capabilities
+        </p>
+
+        <!-- Highlights -->
+        <div class="row g-4">
+
+            <div class="col-md-4">
+                <div class="highlight-card">
+                    <div class="highlight-icon text-primary">
+                        <i class="fa fa-user-shield"></i>
+                    </div>
+                    <div class="highlight-title">Administrative Control</div>
+                    <div class="highlight-text">
+                        Provides centralized access for managing users, datasets,
+                        and system-level operations within the application.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="highlight-card">
+                    <div class="highlight-icon text-success">
+                        <i class="fa fa-brain"></i>
+                    </div>
+                    <div class="highlight-title">ML Model Supervision</div>
+                    <div class="highlight-text">
+                        Enables oversight of machine learning workflows, including
+                        data preparation, model training, and evaluation processes.
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="highlight-card">
+                    <div class="highlight-icon text-danger">
+                        <i class="fa fa-shield-alt"></i>
+                    </div>
+                    <div class="highlight-title">Security & Reliability</div>
+                    <div class="highlight-text">
+                        Ensures secure access, controlled operations, and reliable
+                        functioning of the Alzheimer’s Disease Prediction system.
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,141 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Alzheimer's Disease Prediction Using Modern Machine Learning Techniques</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <!-- Custom UI Styling -->
+    <style>
+        body {
+    background: linear-gradient(135deg, #f8f9fb, #eef2f7);
+    font-family: 'Poppins', sans-serif;
+    padding-top: 80px;
+    font-size: 15px;
+    color: #1f2933;
+}
+
+
+        /* Navbar */
+        .custom-navbar {
+            background: linear-gradient(90deg, #d5f693, #d9fcb7);
+            padding: 14px 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .custom-navbar .navbar-brand {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    color: #f59e0b;
+}
+
+.custom-navbar .nav-link {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+}
+
+
+        .custom-navbar .navbar-brand:hover {
+            color: #fbbf24;
+        }
+
+        
+
+        .custom-navbar .nav-link:hover {
+            color: #f59e0b !important;
+        }
+
+        .custom-navbar .nav-link::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #f59e0b;
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s ease;
+        }
+
+        .custom-navbar .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .logout-btn {
+            color: #ef4444 !important;
+        }
+
+        .logout-btn:hover {
+            color: #f87171 !important;
+        }
+
+        .page-header h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+    color: #7f1d1d;
+}
+p {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #4b5563;
+}
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg custom-navbar fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'UserHome' %}">
+            Alzheimer’s Disease Prediction
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse justify-content-end" id="navbarCollapse">
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'UserHome' %}">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'DatasetView' %}">Dataset</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Training">Training</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'prediction' %}">Prediction</a></li>
+                <li class="nav-item"><a class="nav-link logout-btn" href="{% url 'index' %}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- PAGE HEADER -->
+<div class="page-header text-center mt-4">
+    <h2>Alzheimer's Disease Prediction Using Modern Machine Learning Techniques</h2>
+</div>
+
+<!-- PAGE CONTENT -->
+{% block contents %}
+{% endblock %}
+
+<!-- FOOTER SPACING -->
+<br><br><br>
+
+<!-- SCRIPTS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,155 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+
+{% block contents %}
+<section class="about full-screen d-flex justify-content-center align-items-center"
+         style="min-height: 100vh; padding-top: 50px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10 col-12">
+                <div class="card shadow-lg">
+                    <div class="card-body text-center">
+
+                        <h4 class="card-title mb-4 text-danger">
+                            Model Accuracy Comparison
+                        </h4>
+
+                        <!-- Accuracy Table -->
+                        <div class="table-responsive">
+                            <table class="table table-bordered mx-auto w-75">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Algorithm</th>
+                                        <th>Accuracy</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for model, acc in results.items %}
+                                    <tr {% if model == best_model %} class="table-success" {% endif %}>
+                                        <td>{{ model }}</td>
+                                        <td>{{ acc|floatformat:4 }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- ROC Curve -->
+                        {% if roc_curve %}
+                        <div class="mt-5">
+                            <h5 class="text-danger mb-3">
+                                ROC Curve (Best Model: {{ best_model }})
+                            </h5>
+                            <div style="height: 400px;">
+                                <canvas id="rocChart"></canvas>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="mt-4">
+                            <h5 class="text-success">Best Performing Model</h5>
+                            <p class="mb-1"><strong>{{ best_model }}</strong></p>
+                            <p>
+                                Accuracy:
+                                <strong>{{ best_accuracy|floatformat:4 }}</strong>
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ROC DATA ===== -->
+{% if roc_curve %}
+{{ roc_curve|json_script:"roc-data" }}
+{% endif %}
+
+<!-- ===== CHART.JS ===== -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const rocEl = document.getElementById("roc-data");
+    const canvas = document.getElementById("rocChart");
+
+    if (!rocEl || !canvas) return;
+
+    const roc = JSON.parse(rocEl.textContent);
+    const bestModelName = "{{ best_model }}";
+
+    const rocPoints = roc.fpr.map((fpr, i) => ({
+        x: fpr,
+        y: roc.tpr[i]
+    })).sort((a, b) => a.x - b.x);
+
+    new Chart(canvas, {
+        type: 'line',
+        data: {
+            datasets: [
+                {
+                    label: `ROC Curve – ${bestModelName} (AUC = ${roc.auc})`,
+                    data: rocPoints,
+                    borderColor: '#1f77b4',
+                    borderWidth: 3,
+                    stepped: true,
+                    pointRadius: 0,
+                    fill: false,
+                    parsing: false
+                },
+                {
+                    label: 'Random Classifier',
+                    data: [
+                        { x: 0, y: 0 },
+                        { x: 1, y: 1 }
+                    ],
+                    borderColor: '#d62728',
+                    borderDash: [6, 6],
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    parsing: false
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            animation: false,
+            interaction: { mode: null },
+            plugins: {
+                tooltip: { enabled: false },
+                legend: {
+                    position: 'top',
+                    labels: {
+                        font: { weight: 'bold' }
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    type: 'linear',
+                    min: 0,
+                    max: 1,
+                    title: {
+                        display: true,
+                        text: 'False Positive Rate (FPR)'
+                    }
+                },
+                y: {
+                    min: 0,
+                    max: 1,
+                    title: {
+                        display: true,
+                        text: 'True Positive Rate (TPR)'
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+
+{% endblock %}

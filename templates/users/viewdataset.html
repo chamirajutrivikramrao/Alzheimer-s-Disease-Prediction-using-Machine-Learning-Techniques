@@ -1,0 +1,78 @@
+{% extends 'users/userbase.html' %}
+{% block contents %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.css">
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.js"></script>
+
+<script>
+$(document).ready(function () {
+    $('table').DataTable({
+        pageLength: 25,
+        scrollX: true,          // ✅ ENABLE HORIZONTAL SCROLL
+        scrollCollapse: true,
+        autoWidth: false
+    });
+});
+</script>
+
+<div class="container-fluid mt-4">
+    <h3 class="section-title">Balanced Dataset</h3>
+
+    <!-- Scrollable Table Wrapper -->
+    <div class="table-responsive">
+        {{ data|safe }}
+    </div>
+</div>
+
+<style>
+/* Headings */
+.section-title {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: #7f1d1d;
+    margin-bottom: 15px;
+}
+
+/* DataTable font */
+table.dataTable {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    width: 100% !important;
+}
+
+/* Prevent column wrapping */
+table.dataTable th,
+table.dataTable td {
+    white-space: nowrap;
+}
+
+/* Table header */
+table.dataTable thead th {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background-color: #e5edff;
+    color: #1e3a8a;
+}
+
+/* Table body */
+table.dataTable tbody td {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13.5px;
+    color: #374151;
+}
+
+/* Pagination & search */
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_paginate,
+.dataTables_wrapper .dataTables_info {
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+}
+</style>
+
+{% endblock %}

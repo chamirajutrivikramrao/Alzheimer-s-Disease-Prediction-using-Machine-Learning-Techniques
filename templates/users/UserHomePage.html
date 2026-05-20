@@ -1,0 +1,203 @@
+{% extends 'users/userbase.html' %}
+{% load static %}
+{% block contents %}
+
+<div class="container mt-5">
+
+    <!-- Welcome Section -->
+    <div class="row mb-4">
+        <div class="col text-center">
+            <h2 class="text-danger fw-bold">
+                Welcome to Alzheimer’s Disease Prediction System
+            </h2>
+            <p class="text-muted mt-2">
+                AI-powered early risk assessment and clinical decision support
+            </p>
+        </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <div class="row g-4">
+
+        <!-- Dataset -->
+        <div class="col-md-4 col-sm-6">
+            <div class="card feature-card h-100 text-center">
+                <div class="card-body">
+                    <i class="fa fa-database fa-3x text-primary mb-3"></i>
+                    <h5 class="card-title">View Dataset</h5>
+                    <p class="card-text">
+                        Explore the Alzheimer’s disease dataset used for training.
+                    </p>
+                    <a href="{% url 'DatasetView' %}" class="btn btn-outline-primary">
+                        View Dataset
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Training -->
+        <div class="col-md-4 col-sm-6">
+            <div class="card feature-card h-100 text-center">
+                <div class="card-body">
+                    <i class="fa fa-cogs fa-3x text-success mb-3"></i>
+                    <h5 class="card-title">Train Model</h5>
+                    <p class="card-text">
+                        Train and evaluate multiple ML algorithms.
+                    </p>
+                    <a href="{% url 'Training' %}" class="btn btn-outline-success">
+                        Train Model
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prediction -->
+        <div class="col-md-4 col-sm-6">
+            <div class="card feature-card h-100 text-center">
+                <div class="card-body">
+                    <i class="fa fa-heartbeat fa-3x text-danger mb-3"></i>
+                    <h5 class="card-title">Predict Alzheimer’s</h5>
+                    <p class="card-text">
+                        Get patient-specific risk prediction with probability.
+                    </p>
+                    <a href="{% url 'prediction' %}" class="btn btn-outline-danger">
+                        Predict Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!-- About Alzheimer's Disease Section -->
+<div class="row mt-5">
+    <div class="col">
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-4">
+
+                <h3 class="text-danger fw-bold mb-3 text-center">
+                    About Alzheimer’s Disease
+                </h3>
+
+                <p class="text-muted text-center mb-4">
+                    Understanding the disease helps in early detection and better management
+                </p>
+
+                <div class="row">
+
+                    <!-- What is Alzheimer's -->
+                    <div class="col-md-6 mb-4">
+                        <h5 class="fw-semibold text-primary">
+                            What is Alzheimer’s Disease?
+                        </h5>
+                        <p class="text-muted">
+                            Alzheimer’s disease is a progressive neurological disorder that
+                            causes gradual loss of memory, thinking ability, and cognitive
+                            skills. It is the most common cause of dementia among older adults
+                            and affects daily functioning over time.
+                        </p>
+                    </div>
+
+                    <!-- Causes & Risk Factors -->
+                    <div class="col-md-6 mb-4">
+                        <h5 class="fw-semibold text-success">
+                            Causes & Risk Factors
+                        </h5>
+                        <ul class="text-muted">
+                            <li>Increasing age (major risk factor)</li>
+                            <li>Family history and genetic predisposition</li>
+                            <li>Low educational attainment</li>
+                            <li>Cardiovascular conditions (cholesterol, hypertension)</li>
+                            <li>Head injuries and depression</li>
+                            <li>Lifestyle factors such as physical inactivity</li>
+                        </ul>
+                    </div>
+
+                    <!-- Symptoms -->
+                    <div class="col-md-6 mb-4">
+                        <h5 class="fw-semibold text-warning">
+                            Common Symptoms
+                        </h5>
+                        <ul class="text-muted">
+                            <li>Memory loss affecting daily activities</li>
+                            <li>Confusion and disorientation</li>
+                            <li>Difficulty completing familiar tasks</li>
+                            <li>Personality and mood changes</li>
+                            <li>Reduced problem-solving ability</li>
+                        </ul>
+                    </div>
+
+                    <!-- Importance of Early Detection -->
+                    <div class="col-md-6 mb-4">
+                        <h5 class="fw-semibold text-danger">
+                            Importance of Early Detection
+                        </h5>
+                        <p class="text-muted">
+                            Early identification of Alzheimer’s disease allows timely
+                            intervention, better symptom management, and improved quality
+                            of life. Machine learning models can assist clinicians by
+                            analyzing multiple health indicators to estimate disease risk
+                            at an early stage.
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- Custom Styling -->
+<style>
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@500;600;700&display=swap');
+
+/* Global font */
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+/* Page heading */
+h2 {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.5px;
+}
+
+/* Feature cards */
+.feature-card {
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+/* Hover effect */
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* Card titles */
+.card-title {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+}
+
+/* Card description */
+.card-text {
+    font-size: 14.5px;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Buttons */
+.btn {
+    font-weight: 500;
+    letter-spacing: 0.3px;
+}
+</style>
+
+
+{% endblock %}

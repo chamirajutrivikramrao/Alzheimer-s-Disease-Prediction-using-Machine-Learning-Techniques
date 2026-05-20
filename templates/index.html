@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block contents %}
+
+<style>
+.hero {
+    height: 90vh;
+    background:
+        linear-gradient(rgba(242, 244, 244, 0.6), rgba(245, 249, 249, 0.6)),
+        url("{% static 'images/bg.png' %}") center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgb(28, 27, 27);
+    text-align: center;
+}
+</style>
+
+<section class="hero">
+    <div>
+        <h1>Alzheimer’s Disease Prediction</h1>
+        <p>AI-powered early detection using modern machine learning techniques</p>
+        <a href="{% url 'UserLogin' %}" class="btn btn-warning text-dark px-4">
+            Get Started
+        </a>
+    </div>
+</section>
+
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h2 class="font-weight-bold">System Highlights</h2>
+        <p class="text-muted">Why this system is reliable</p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card p-4 text-center shadow">
+                <i class="fas fa-brain fa-2x text-danger mb-3"></i>
+                <h5>AI-Based Prediction</h5>
+                <p>Advanced ML models for Alzheimer’s risk detection</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 text-center shadow">
+                <i class="fas fa-chart-line fa-2x text-danger mb-3"></i>
+                <h5>Accurate Models</h5>
+                <p>Best-performing algorithms selected automatically</p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card p-4 text-center shadow">
+                <i class="fas fa-user-md fa-2x text-danger mb-3"></i>
+                <h5>Clinical Support</h5>
+                <p>Supports doctors with interpretable predictions</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
